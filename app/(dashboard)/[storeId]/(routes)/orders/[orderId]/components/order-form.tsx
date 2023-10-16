@@ -30,9 +30,14 @@ const formSchema = z.object({
   customer: z.string().min(2),
   customer_email: z.string().min(2).email(),
   product: z.string(),
-  quantity: z.string().min(1).refine((value) => !isNaN(Number(value)), {
-    message: "Please enter a valid numerical value for quantity.",
-  }),
+  quantity: z
+    .string()
+    .refine((value) => !isNaN(Number(value)), {
+      message: "Please enter a valid numerical value for quantity.",
+    })
+    .refine((value) => Number(value) > 0, {
+      message: "Quantity must be greater than zero.",
+    }),
 });
 
 type OrdersFormValues = z.infer<typeof formSchema>
