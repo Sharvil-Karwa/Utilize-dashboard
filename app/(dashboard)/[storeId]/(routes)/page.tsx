@@ -1,4 +1,3 @@
-import { CreditCard, DollarSign, Package } from "lucide-react";
 import { Heading } from "@/components/ui/heading";
 
 interface DashboardPageProps {
