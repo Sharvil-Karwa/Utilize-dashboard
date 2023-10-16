@@ -29,9 +29,9 @@ export default async function DashboardLayout({
   };
 
   return (
-    <>
+    <div className='h-screen'>
       <Navbar />
       {children}
-    </>
+    </div>
   );
 };
