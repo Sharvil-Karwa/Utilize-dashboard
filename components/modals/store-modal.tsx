@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-
-
 "use client";
 
 import * as z from "zod"
@@ -19,6 +16,7 @@ import { Button } from "@/components/ui/button";
 const formSchema = z.object({
   name: z.string().min(1),
 });
+
 export const StoreModal = () => {
   const storeModal = useStoreModal();
 
@@ -33,14 +31,13 @@ export const StoreModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setLoading(true); 
-      toast.success("Store created");
+      setLoading(true);
       const response = await axios.post('/api/stores', values);
-      window.location.assign('/orders');
+      window.location.assign(`/${response.data.id}/orders`);
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -48,7 +45,7 @@ export const StoreModal = () => {
     <Modal
       title="Create store"
       description="Add a new store to manage products and orders."
-      isOpen={storeModal.isOpen}
+      isOpen={storeModal.isOpen} 
       onClose={storeModal.onClose}
     >
       <div>
@@ -70,27 +67,10 @@ export const StoreModal = () => {
                   )}
                 />
                 <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-               
-                  {loading ? ( 
-                    <div>
-                      <div className="relative inline-block w-16 h-16">
-                      <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12">
-                      </div>
-                    </div>
-                    <div className="text-red-500">
-                      Your store is being populated with the dummy data, reload the page if you don't want to wait while the dummy data is loading
-                    </div> 
-                    </div>
-                  ) : (
-                    <div>
-                      <Button disabled={loading} variant="outline" onClick={storeModal.onClose}>
+                  <Button disabled={loading} variant="outline" onClick={storeModal.onClose}>
                     Cancel
-                    </Button>
-                    <Button disabled={loading} type="submit">
-                      Continue
-                    </Button>
-                    </div>
-                  )}
+                  </Button>
+                  <Button disabled={loading} type="submit">Continue</Button>
                 </div>
               </form>
             </Form>

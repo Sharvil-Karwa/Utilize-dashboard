@@ -72,3 +72,49 @@ export async function DELETE(
     return new NextResponse("Internal error", { status: 500 });
   }
 };
+
+export async function GET(req: Request, { params }: { params: { storeId: string } }) {
+  try {
+    const { userId } = auth();
+
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 403 });
+    }
+
+    const store = await prismadb.store.findUnique({
+      where: {
+        id: params.storeId
+      }
+    }); 
+
+    if(!store){
+      return new NextResponse("Store not found", { status: 400 });
+    }
+
+    const orders = await prismadb.order.findMany({
+      where:{
+        storeId: process.env.DUMMY_STORE_ID
+      }
+    }) 
+
+
+    for (const order of orders) {
+      const { customer, customer_email, product, quantity } = order;
+
+      await prismadb.order.create({
+        data: {
+          customer,
+          customer_email,
+          product,
+          quantity: quantity.toString(),
+          storeId: params.storeId
+        },
+      });
+    }
+
+    return NextResponse.json(store);
+  } catch (error) {
+    console.log('[STORE_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+}

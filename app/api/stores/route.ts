@@ -24,27 +24,6 @@ export async function POST(req: Request, { params }: { params: { storeId: string
       }
     });
 
-
-    const orders = await prismadb.order.findMany({
-      where:{
-        storeId: process.env.DUMMY_STORE_ID
-      }
-    })
-
-    for (const order of orders) {
-      const { customer, customer_email, product, quantity } = order;
-
-      await prismadb.order.create({
-        data: {
-          customer,
-          customer_email,
-          product,
-          quantity: quantity.toString(),
-          storeId: store.id,
-        },
-      });
-    }
-
     return NextResponse.json(store);
   } catch (error) {
     console.log('[STORES_POST]', error);
