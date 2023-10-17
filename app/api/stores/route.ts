@@ -24,19 +24,19 @@ export async function POST(req: Request, { params }: { params: { storeId: string
       }
     });
 
-    // Use the relative path to 'DummyData.json' in the same directory as route.ts
-    const jsonFilePath = 'app/api/stores/DummyData.json'
 
-    const jsonData = await fs.readFile(jsonFilePath, 'utf8');
-    const orders = JSON.parse(jsonData);
+    const orders = await prismadb.order.findMany({
+      where:{
+        storeId: process.env.DUMMY_STORE_ID
+      }
+    })
 
-    // Create the orders for the new store
     for (const order of orders) {
-      const { customer_name, customer_email, product, quantity } = order;
+      const { customer, customer_email, product, quantity } = order;
 
       await prismadb.order.create({
         data: {
-          customer: customer_name,
+          customer,
           customer_email,
           product,
           quantity: quantity.toString(),
