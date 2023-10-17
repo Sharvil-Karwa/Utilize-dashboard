@@ -1,15 +1,12 @@
-import fs from 'fs/promises'; // Use the fs.promises API to read the JSON file
+import fs from 'fs/promises';
 import { auth } from '@clerk/nextjs';
 import prismadb from '@/lib/prismadb';
 import { NextResponse } from "next/server";
 
-
-export async function POST( req: Request,
-  { params }: { params: { storeId: string } }) {
+export async function POST(req: Request, { params }: { params: { storeId: string } }) {
   try {
     const { userId } = auth();
     const body = await req.json();
-
     const { name } = body;
 
     if (!userId) {
@@ -27,14 +24,15 @@ export async function POST( req: Request,
       }
     });
 
-    // Read the JSON data from DummyData.json
-    const jsonData = await fs.readFile('DummyData.json', 'utf8');
+    // Use the relative path to 'DummyData.json' at the root level of your project
+    const jsonFilePath = 'DummyData.json';
+
+    const jsonData = await fs.readFile(jsonFilePath, 'utf8');
     const orders = JSON.parse(jsonData);
 
     // Create the orders for the new store
     for (const order of orders) {
-      const { customer_name, customer_email, product, quantity } = order; 
-      
+      const { customer_name, customer_email, product, quantity } = order;
 
       await prismadb.order.create({
         data: {
@@ -42,10 +40,9 @@ export async function POST( req: Request,
           customer_email,
           product,
           quantity: quantity.toString(),
-          storeId: store.id, // Assign the order to the new store
+          storeId: store.id,
         },
-      }); 
-
+      });
     }
 
     return NextResponse.json(store);
