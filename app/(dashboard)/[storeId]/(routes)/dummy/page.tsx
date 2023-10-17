@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 
+"use client"
+
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Server, Table } from "lucide-react";
