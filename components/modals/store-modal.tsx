@@ -75,15 +75,8 @@ export const StoreModal = () => {
                       </div>
                     </div>
                     <div className="text-red-500">
-                      Your store is being populated with the dummy data
+                      Your store is being populated with the dummy data (reload the page if you don't want to wait while the dummy data is loading)
                     </div> 
-                    <div
-  onClick={() => window.location.assign('/orders')}
-  className="cursor-pointer inline-block px-4 py-2 rounded-md bg-black text-white hover:bg-gray-800"
->
-  Continue
-</div>
-
                     </div>
                   ) : (
                     <div>
