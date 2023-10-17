@@ -2,8 +2,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
-import Footer from '@/components/footer'
-import prismadb from '@/lib/prismadb'
 import { ModalProvider } from '@/providers/modal-provider'
 import { ToastProvider } from '@/providers/toast-provider'
 
@@ -28,7 +26,6 @@ export default function RootLayout({
           <ToastProvider />
           <ModalProvider />
           {children}    
-          <Footer />
         </body>
       </html>
     </ClerkProvider>

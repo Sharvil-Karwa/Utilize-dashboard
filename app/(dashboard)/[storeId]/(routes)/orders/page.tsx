@@ -14,7 +14,7 @@ const ordersPage = async ({
             storeId: params.storeId
         },
         orderBy:{
-            createdAt: 'desc'
+            updatedAt: 'desc'
         }
     })
 

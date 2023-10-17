@@ -106,15 +106,15 @@ export const OrdersForm: React.FC<OrdersFormProps> = ({
 
   const products = [
     {
-      id: "1",
+      id: "Product 1",
       label : "Product 1"
     }, 
     {
-      id: "2",
+      id: "Product 2",
       label : "Product 2"
     }, 
     {
-      id: "3",
+      id: "Product 3",
       label : "Product 3"
     }
   ]
@@ -173,16 +173,27 @@ export const OrdersForm: React.FC<OrdersFormProps> = ({
               name="product"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Product</FormLabel>
-                  <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                  <FormLabel>Select Product</FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={initialData ? initialData.product : ''}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Select a product" />
+                        {field.value ? (
+                          <SelectValue>{products.find((p) => p.label === field.value)?.label}</SelectValue>
+                        ) : (
+                          <SelectValue>Select a product</SelectValue>
+                        )}
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       {products.map((product) => (
-                        <SelectItem key={product.id} value={product.id}>{product.label}</SelectItem>
+                        <SelectItem key={product.id} value={product.id}>
+                          {product.label}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -190,6 +201,8 @@ export const OrdersForm: React.FC<OrdersFormProps> = ({
                 </FormItem>
               )}
             />
+
+
             <FormField
               control={form.control}
               name="quantity"

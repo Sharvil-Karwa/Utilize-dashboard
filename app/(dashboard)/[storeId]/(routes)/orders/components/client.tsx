@@ -23,13 +23,14 @@ export const OrdersClient: React.FC<OrdersClientProps> = ({
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading title={`Orders (${data.length})`} description="Manage orders for your store" />
+        <Heading title={`Orders (${data.length})`} description="Manage orders for your store" /> 
+        <div className="text-red-500">(Refresh the page for getting more orders from the dummy data)</div>
         <Button onClick={() => router.push(`/${params.storeId}/orders/new`)}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data} />
+      <DataTable searchKey="customer" columns={columns} data={data} />
     </>
   );
 };
