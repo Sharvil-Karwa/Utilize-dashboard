@@ -75,7 +75,7 @@ export const StoreModal = () => {
                       </div>
                     </div>
                     <div className="text-red-500">
-                      Your store is being populated with the dummy data (reload the page if you don't want to wait while the dummy data is loading)
+                      Your store is being populated with the dummy data, reload the page if you don't want to wait while the dummy data is loading
                     </div> 
                     </div>
                   ) : (
