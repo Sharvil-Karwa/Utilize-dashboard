@@ -24,8 +24,8 @@ export async function POST(req: Request, { params }: { params: { storeId: string
       }
     });
 
-    // Use the relative path to 'DummyData.json' at the root level of your project
-    const jsonFilePath = 'DummyData.json';
+    // Use the relative path to 'DummyData.json' in the same directory as route.ts
+    const jsonFilePath = 'app/api/stores/DummyData.json'
 
     const jsonData = await fs.readFile(jsonFilePath, 'utf8');
     const orders = JSON.parse(jsonData);
