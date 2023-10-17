@@ -44,7 +44,7 @@ const page = () => {
                 <div className="text-green-600 mb-5"> 
                     Started populating dummy data into your orders table
                 </div> 
-                <Button onClick={()=>{router.push(`/${params.storeId}/orders`);}}>
+                <Button onClick={()=>{router.push(`/${params.storeId}/orders`); alert("If all dummy orders haven't loaded, just refresh the page once!");}}>
                     <Table className="mr-2 h-4 w-4" />Back to orders page
                 </Button>
         </div>}
